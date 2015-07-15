@@ -20,7 +20,7 @@ MeteorDdp.prototype._Ids = function() {
   }
 }();
 
-MeteorDdp.prototype.connect = function() {
+MeteorDdp.prototype.connect = function(ondisconnect) {
   var self = this;
   var conn = new $.Deferred();
 
@@ -36,6 +36,16 @@ MeteorDdp.prototype.connect = function() {
 
   self.sock.onerror = function(err) {
     conn.reject(err);
+  };
+
+  self.sock.onclose = function(event) {
+    if (event.wasClean) {
+      // alert('Соединение закрыто чисто');
+    } else {
+      ondisconnect();
+      // alert('Обрыв соединения'); // например, "убит" процесс сервера
+    }
+    // alert('Код: ' + event.code + ' причина: ' + event.reason);
   };
 
   self.sock.onmessage = function(msg) {
