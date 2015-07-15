@@ -1,12 +1,12 @@
 
 
-$.get( "http://localhost:3000/extension/getUserId", function( data ) {
+$.get( "http://tt.md0.ru/extension/getUserId", function( data ) {
   console.log( "Data Loaded: " + data );
   var userId = data;
 
 
 	// Attach DDP to your local app
-	var ddp = new MeteorDdp("ws://localhost:3000/websocket");
+	var ddp = new MeteorDdp("ws://tt.md0.ru/websocket");
 
 	var tasks = 0;
 
